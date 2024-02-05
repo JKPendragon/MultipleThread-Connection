@@ -193,6 +193,7 @@
             button3.TabIndex = 11;
             button3.Text = "Setup Connect";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // label6
             // 
