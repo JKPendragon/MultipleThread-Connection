@@ -1,16 +1,10 @@
 using System.Data;
 using System.Data.Entity;
 using System.Data.SQLite;
+using UserClient.Model;
 
 namespace UserClient
 {
-    public class Address
-    {
-        public int ID { get; set; }
-        public string IP { get; set; }
-        public int Port { get; set; }
-    }
-
     public partial class getData : Form
     {
         public getData()
@@ -21,6 +15,9 @@ namespace UserClient
         private void button3_Click(object sender, EventArgs e)
         {
             SetupSeverData s = new SetupSeverData();
+            SQLiteConnection sqlite_conn;
+            sqlite_conn = CreateConnection();
+            ReadData(sqlite_conn);
             s.Show();
         }
 
@@ -56,7 +53,12 @@ namespace UserClient
                 address.Port = sqlite_datareader.GetInt32(2);
                 addresses.Add(address);
             }
-
+            SetupSeverData.ip1.Text = addresses[0].IP;
+            SetupSeverData.ip2.Text = addresses[1].IP;
+            SetupSeverData.ip3.Text = addresses[2].IP;
+            SetupSeverData.port1.Text = addresses[0].Port.ToString();
+            SetupSeverData.port2.Text = addresses[1].Port.ToString();
+            SetupSeverData.port3.Text = addresses[2].Port.ToString();
             conn.Close();
         }
 

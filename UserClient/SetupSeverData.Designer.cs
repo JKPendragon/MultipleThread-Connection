@@ -130,7 +130,6 @@
             // ip1
             // 
             ip1.Location = new Point(142, 35);
-            ip1.Mask = "000.000.000.000";
             ip1.Name = "ip1";
             ip1.Size = new Size(137, 31);
             ip1.TabIndex = 8;
@@ -138,7 +137,6 @@
             // ip2
             // 
             ip2.Location = new Point(142, 115);
-            ip2.Mask = "000.000.000.000";
             ip2.Name = "ip2";
             ip2.Size = new Size(137, 31);
             ip2.TabIndex = 9;
@@ -146,7 +144,6 @@
             // ip3
             // 
             ip3.Location = new Point(142, 188);
-            ip3.Mask = "000.000.000.000";
             ip3.Name = "ip3";
             ip3.Size = new Size(137, 31);
             ip3.TabIndex = 10;
@@ -154,7 +151,6 @@
             // port1
             // 
             port1.Location = new Point(285, 35);
-            port1.Mask = "9999";
             port1.Name = "port1";
             port1.Size = new Size(53, 31);
             port1.TabIndex = 11;
@@ -218,7 +214,6 @@
             // port2
             // 
             port2.Location = new Point(285, 112);
-            port2.Mask = "9999";
             port2.Name = "port2";
             port2.Size = new Size(53, 31);
             port2.TabIndex = 17;
@@ -235,7 +230,6 @@
             // port3
             // 
             port3.Location = new Point(285, 188);
-            port3.Mask = "9999";
             port3.Name = "port3";
             port3.Size = new Size(53, 31);
             port3.TabIndex = 19;
@@ -360,19 +354,13 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private static MaskedTextBox ip1;
-        private  static MaskedTextBox ip2;
-        private static MaskedTextBox ip3;
-        private static MaskedTextBox port1;
         private Label label9;
         private Label label10;
         private Button connect;
         private Label label11;
         private Label label12;
         private Label label13;
-        private  static MaskedTextBox port2;
         private Label label14;
-        private static MaskedTextBox port3;
         private Label label15;
         private Label label16;
         private Label label17;
@@ -380,5 +368,11 @@
         private Label status2;
         private Label status3;
         private Button save;
+        public static MaskedTextBox ip1;
+        public static MaskedTextBox ip2;
+        public static MaskedTextBox ip3;
+        public static MaskedTextBox port1;
+        public static MaskedTextBox port2;
+        public static MaskedTextBox port3;
     }
 }
