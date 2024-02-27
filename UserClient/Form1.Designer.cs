@@ -37,7 +37,7 @@
             label2 = new Label();
             label1 = new Label();
             richTextBox2 = new RichTextBox();
-            richTextBox1 = new RichTextBox();
+            get = new RichTextBox();
             textBox2 = new TextBox();
             textBox1 = new TextBox();
             label5 = new Label();
@@ -52,8 +52,12 @@
             numericUpDown3 = new NumericUpDown();
             button4 = new Button();
             label11 = new Label();
-            button5 = new Button();
-            richTextBox3 = new RichTextBox();
+            read = new Button();
+            log = new RichTextBox();
+            check = new Button();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -72,7 +76,7 @@
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(richTextBox2);
-            panel1.Controls.Add(richTextBox1);
+            panel1.Controls.Add(get);
             panel1.Controls.Add(textBox2);
             panel1.Controls.Add(textBox1);
             panel1.Location = new Point(336, 12);
@@ -152,14 +156,14 @@
             richTextBox2.TabIndex = 3;
             richTextBox2.Text = "";
             // 
-            // richTextBox1
+            // get
             // 
-            richTextBox1.Location = new Point(93, 99);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(330, 116);
-            richTextBox1.TabIndex = 2;
-            richTextBox1.Text = "";
+            get.Location = new Point(93, 99);
+            get.Name = "get";
+            get.ReadOnly = true;
+            get.Size = new Size(330, 116);
+            get.TabIndex = 2;
+            get.Text = "";
             // 
             // textBox2
             // 
@@ -278,30 +282,55 @@
             label11.TabIndex = 21;
             label11.Text = "Logging";
             // 
-            // button5
+            // read
             // 
-            button5.Location = new Point(218, 598);
-            button5.Name = "button5";
-            button5.Size = new Size(112, 34);
-            button5.TabIndex = 22;
-            button5.Text = "Read data";
-            button5.UseVisualStyleBackColor = true;
+            read.Location = new Point(218, 598);
+            read.Name = "read";
+            read.Size = new Size(112, 34);
+            read.TabIndex = 22;
+            read.Text = "Read data";
+            read.UseVisualStyleBackColor = true;
+            read.Click += read_Click;
             // 
-            // richTextBox3
+            // log
             // 
-            richTextBox3.Location = new Point(19, 366);
-            richTextBox3.Name = "richTextBox3";
-            richTextBox3.Size = new Size(305, 226);
-            richTextBox3.TabIndex = 23;
-            richTextBox3.Text = "";
+            log.Location = new Point(19, 366);
+            log.Name = "log";
+            log.Size = new Size(305, 226);
+            log.TabIndex = 23;
+            log.Text = "";
+            // 
+            // check
+            // 
+            check.BackColor = SystemColors.Info;
+            check.Location = new Point(19, 598);
+            check.Name = "check";
+            check.Size = new Size(122, 34);
+            check.TabIndex = 24;
+            check.Text = "Start Check";
+            check.UseVisualStyleBackColor = false;
+            check.Click += check_Click;
+            // 
+            // backgroundWorker1
+            // 
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            // 
+            // backgroundWorker2
+            // 
+            backgroundWorker2.DoWork += backgroundWorker2_DoWork;
+            // 
+            // backgroundWorker3
+            // 
+            backgroundWorker3.DoWork += backgroundWorker3_DoWork;
             // 
             // getData
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(978, 644);
-            Controls.Add(richTextBox3);
-            Controls.Add(button5);
+            Controls.Add(check);
+            Controls.Add(log);
+            Controls.Add(read);
             Controls.Add(label11);
             Controls.Add(button4);
             Controls.Add(numericUpDown3);
@@ -333,7 +362,7 @@
         private Panel panel1;
         private Label label1;
         private RichTextBox richTextBox2;
-        private RichTextBox richTextBox1;
+        private RichTextBox get;
         private TextBox textBox2;
         private TextBox textBox1;
         private Button button1;
@@ -354,7 +383,11 @@
         private NumericUpDown numericUpDown3;
         private Button button4;
         private Label label11;
-        private Button button5;
-        private RichTextBox richTextBox3;
+        private Button read;
+        private Button check;
+        public RichTextBox log;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
     }
 }

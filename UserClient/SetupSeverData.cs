@@ -5,10 +5,13 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.Logging;
 
 namespace UserClient
 {
@@ -26,6 +29,7 @@ namespace UserClient
             InsertData1(sqlite_conn);
             InsertData2(sqlite_conn);
             InsertData3(sqlite_conn);
+
             this.Close();
         }
         static void InsertData1(SQLiteConnection conn)
@@ -84,9 +88,18 @@ namespace UserClient
             return sqlite_conn;
         }
 
-        private void connect_Click(object sender, EventArgs e)
+       
+        public static IPEndPoint endPoint1()
         {
-            save.Enabled = true;
+            IPEndPoint ip;
+            decimal p = decimal.Parse(port1.Text);
+            int port = (int)p;
+            string add = ip1.Text;
+            var ipaddress = IPAddress.Parse(add);
+            ip = new IPEndPoint(ipaddress, port);
+            return ip;
         }
+        
     }
 }
+ 

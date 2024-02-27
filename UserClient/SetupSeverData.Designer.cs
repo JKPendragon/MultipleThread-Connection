@@ -36,13 +36,10 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            ip1 = new MaskedTextBox();
             ip2 = new MaskedTextBox();
             ip3 = new MaskedTextBox();
-            port1 = new MaskedTextBox();
             label9 = new Label();
             label10 = new Label();
-            connect = new Button();
             label11 = new Label();
             label12 = new Label();
             label13 = new Label();
@@ -52,10 +49,9 @@
             label15 = new Label();
             label16 = new Label();
             label17 = new Label();
-            status1 = new Label();
-            status2 = new Label();
-            status3 = new Label();
             save = new Button();
+            ip1 = new TextBox();
+            port1 = new MaskedTextBox();
             SuspendLayout();
             // 
             // label1
@@ -127,38 +123,24 @@
             label8.Size = new Size(649, 3);
             label8.TabIndex = 7;
             // 
-            // ip1
-            // 
-            ip1.Location = new Point(142, 35);
-            ip1.Name = "ip1";
-            ip1.Size = new Size(137, 31);
-            ip1.TabIndex = 8;
-            // 
             // ip2
             // 
             ip2.Location = new Point(142, 115);
             ip2.Name = "ip2";
-            ip2.Size = new Size(137, 31);
+            ip2.Size = new Size(216, 31);
             ip2.TabIndex = 9;
             // 
             // ip3
             // 
             ip3.Location = new Point(142, 188);
             ip3.Name = "ip3";
-            ip3.Size = new Size(137, 31);
+            ip3.Size = new Size(216, 31);
             ip3.TabIndex = 10;
-            // 
-            // port1
-            // 
-            port1.Location = new Point(285, 35);
-            port1.Name = "port1";
-            port1.Size = new Size(53, 31);
-            port1.TabIndex = 11;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(142, 7);
+            label9.Location = new Point(204, 7);
             label9.Name = "label9";
             label9.Size = new Size(91, 25);
             label9.TabIndex = 12;
@@ -167,27 +149,16 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(285, 7);
+            label10.Location = new Point(463, 7);
             label10.Name = "label10";
             label10.Size = new Size(44, 25);
             label10.TabIndex = 13;
             label10.Text = "Port";
             // 
-            // connect
-            // 
-            connect.BackColor = Color.Bisque;
-            connect.Location = new Point(407, 247);
-            connect.Name = "connect";
-            connect.Size = new Size(157, 63);
-            connect.TabIndex = 14;
-            connect.Text = "Connect";
-            connect.UseVisualStyleBackColor = false;
-            connect.Click += connect_Click;
-            // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(142, 87);
+            label11.Location = new Point(204, 87);
             label11.Name = "label11";
             label11.Size = new Size(91, 25);
             label11.TabIndex = 15;
@@ -196,7 +167,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(142, 160);
+            label12.Location = new Point(204, 160);
             label12.Name = "label12";
             label12.Size = new Size(91, 25);
             label12.TabIndex = 16;
@@ -205,7 +176,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(285, 87);
+            label13.Location = new Point(463, 87);
             label13.Name = "label13";
             label13.Size = new Size(44, 25);
             label13.TabIndex = 18;
@@ -213,15 +184,15 @@
             // 
             // port2
             // 
-            port2.Location = new Point(285, 112);
+            port2.Location = new Point(440, 117);
             port2.Name = "port2";
-            port2.Size = new Size(53, 31);
+            port2.Size = new Size(92, 31);
             port2.TabIndex = 17;
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(285, 160);
+            label14.Location = new Point(463, 160);
             label14.Name = "label14";
             label14.Size = new Size(44, 25);
             label14.TabIndex = 20;
@@ -229,9 +200,9 @@
             // 
             // port3
             // 
-            port3.Location = new Point(285, 188);
+            port3.Location = new Point(440, 188);
             port3.Name = "port3";
-            port3.Size = new Size(53, 31);
+            port3.Size = new Size(92, 31);
             port3.TabIndex = 19;
             // 
             // label15
@@ -262,57 +233,41 @@
             label17.Size = new Size(0, 25);
             label17.TabIndex = 23;
             // 
-            // status1
-            // 
-            status1.AutoSize = true;
-            status1.ForeColor = Color.BlueViolet;
-            status1.Location = new Point(407, 38);
-            status1.Name = "status1";
-            status1.Size = new Size(157, 25);
-            status1.TabIndex = 24;
-            status1.Text = "CONNECT STATUS";
-            // 
-            // status2
-            // 
-            status2.AutoSize = true;
-            status2.ForeColor = Color.BlueViolet;
-            status2.Location = new Point(407, 115);
-            status2.Name = "status2";
-            status2.Size = new Size(157, 25);
-            status2.TabIndex = 25;
-            status2.Text = "CONNECT STATUS";
-            // 
-            // status3
-            // 
-            status3.AutoSize = true;
-            status3.ForeColor = Color.BlueViolet;
-            status3.Location = new Point(407, 191);
-            status3.Name = "status3";
-            status3.Size = new Size(157, 25);
-            status3.TabIndex = 26;
-            status3.Text = "CONNECT STATUS";
-            // 
             // save
             // 
             save.BackColor = Color.PaleGreen;
-            save.Enabled = false;
-            save.Location = new Point(142, 247);
+            save.Font = new Font("Verdana", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            save.Location = new Point(179, 247);
             save.Name = "save";
-            save.Size = new Size(153, 63);
+            save.Size = new Size(291, 85);
             save.TabIndex = 27;
             save.Text = "Save";
+            save.TextImageRelation = TextImageRelation.ImageAboveText;
             save.UseVisualStyleBackColor = false;
             save.Click += save_Click;
+            // 
+            // ip1
+            // 
+            ip1.Location = new Point(142, 40);
+            ip1.Name = "ip1";
+            ip1.Size = new Size(216, 31);
+            ip1.TabIndex = 28;
+            // 
+            // port1
+            // 
+            port1.Location = new Point(440, 40);
+            port1.Name = "port1";
+            port1.Size = new Size(92, 31);
+            port1.TabIndex = 31;
             // 
             // SetupSeverData
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(678, 344);
+            Controls.Add(port1);
+            Controls.Add(ip1);
             Controls.Add(save);
-            Controls.Add(status3);
-            Controls.Add(status2);
-            Controls.Add(status1);
             Controls.Add(label17);
             Controls.Add(label16);
             Controls.Add(label15);
@@ -322,13 +277,10 @@
             Controls.Add(port2);
             Controls.Add(label12);
             Controls.Add(label11);
-            Controls.Add(connect);
             Controls.Add(label10);
             Controls.Add(label9);
-            Controls.Add(port1);
             Controls.Add(ip3);
             Controls.Add(ip2);
-            Controls.Add(ip1);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -356,7 +308,6 @@
         private Label label8;
         private Label label9;
         private Label label10;
-        private Button connect;
         private Label label11;
         private Label label12;
         private Label label13;
@@ -364,15 +315,12 @@
         private Label label15;
         private Label label16;
         private Label label17;
-        private Label status1;
-        private Label status2;
-        private Label status3;
         private Button save;
-        public static MaskedTextBox ip1;
+        public static MaskedTextBox port1;
         public static MaskedTextBox ip2;
         public static MaskedTextBox ip3;
-        public static MaskedTextBox port1;
         public static MaskedTextBox port2;
         public static MaskedTextBox port3;
+        public static TextBox ip1;
     }
 }
