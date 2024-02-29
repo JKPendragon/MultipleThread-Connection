@@ -1,4 +1,7 @@
-﻿using System.Data.SQLite;
+﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.SQLite;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -12,12 +15,19 @@ namespace UserClient
         private TcpClient client1 = new();
         private TcpClient client2 = new();
         private TcpClient client3 = new();
+        string dataServer1;
+        string dataServer2;
+        string dataServer3;
         public getData()
         {
             InitializeComponent();
-
         }
 
+        /// <summary>
+        /// show the setup server form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             SetupSeverData s = new SetupSeverData();
@@ -25,8 +35,12 @@ namespace UserClient
             sqlite_conn = CreateConnection();
             ReadData(sqlite_conn);
             s.Show();
+            check.Enabled = true;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         static SQLiteConnection CreateConnection()
         {
             SQLiteConnection sqlite_conn;
@@ -43,6 +57,10 @@ namespace UserClient
             }
             return sqlite_conn;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="conn"></param>
         static void ReadData(SQLiteConnection conn)
         {
             List<Address> addresses = new List<Address>();
@@ -74,10 +92,21 @@ namespace UserClient
         /// <param name="e"></param>
         private void check_Click(object sender, EventArgs e)
         {
-            log.Text = "START CHECKING FILE CHANGED";
-            backgroundWorker1.RunWorkerAsync();
-            backgroundWorker2.RunWorkerAsync();
-            backgroundWorker3.RunWorkerAsync();
+            read.Enabled = true;
+            try
+            {
+                log.ForeColor = Color.Green;
+                log.Text = "START CHECKING FILE";
+                log.AppendText(Environment.NewLine);
+                backgroundWorker1.RunWorkerAsync();
+                backgroundWorker2.RunWorkerAsync();
+                backgroundWorker3.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                log.Text=("error from server, please try again");
+            }
+
         }
         /*private void StartClient(IPEndPoint address)
         {
@@ -121,93 +150,210 @@ namespace UserClient
         }
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            List<IPEndPoint> ip = iPEndPoints();
-            client1.Connect(ip[0]);
-            NetworkStream stream = client1.GetStream();
-            byte[] buffer = new byte[1024];
-            while (true)
+            try
             {
-                // read data received from the server
+                List<IPEndPoint> ip = iPEndPoints();
+                //Connect to server 1 :
 
-                int received = stream.Read(buffer, 0, buffer.Length);
-                string response = Encoding.UTF8.GetString(buffer, 0, received);
-                if (response != null)
+                client1.Connect(ip[0]);
+                NetworkStream stream = client1.GetStream();
+                byte[] buffer = new byte[1024];
+                while (true)
                 {
-                    AppendToLog("detect " + response + " at " + DateTime.Now + Environment.NewLine, Color.Chartreuse);
+                    // read data received from the server
+                    int received = stream.Read(buffer, 0, buffer.Length);
+                    string response = Encoding.UTF8.GetString(buffer, 0, received);
+                    if (response.Equals("File1 was changed"))
+                    {
+                        AppendToLog("detect " + response + " at " + DateTime.Now + Environment.NewLine);
+                    }
+                    else
+                    {
+                        dataServer1 = response;
+                    }
                 }
+            }catch (Exception ex)
+            {
+                AppendToLog("can't Connect to server 1,please try again (port is 1308 and ip is any)");
             }
 
+
         }
-        private void AppendToLog(string text, Color color)
+        private void AppendToLog(string text)
         {
             if (log.InvokeRequired)
             {
-                log.Invoke(new Action<string, Color>(AppendToLog), new object[] { text, color });
+                log.Invoke(new Action<string>(AppendToLog), new object[] { text });
             }
             else
             {
                 log.Text += text;
                 // Thiết lập màu cho văn bản đã chọn
-                log.SelectionColor = color;
+            }
+        }
+        private static void AppendToGet(string text)
+        {
+            if (get.InvokeRequired)
+            {
+                get.Invoke(new Action<string>(AppendToGet), new object[] { text });
+            }
+            else
+            {
+                get.Text = text;
             }
         }
 
         private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            List<IPEndPoint> ip = iPEndPoints();
-            client2.Connect(ip[1]);
-            NetworkStream stream = client2.GetStream();
-            byte[] buffer = new byte[1024];
-            string k = "connect success to server";
-            buffer = Encoding.UTF8.GetBytes(k);
-            stream.Write(buffer, 0, buffer.Length);
-            while (true)
+            try
             {
-                // read data received from the server
+                List<IPEndPoint> ip = iPEndPoints();
+                //Connect to server 1 :
 
-                int received = stream.Read(buffer, 0, buffer.Length);
-                string response = Encoding.UTF8.GetString(buffer, 0, received);
-                if (response != null)
+                client2.Connect(ip[1]);
+                NetworkStream stream = client2.GetStream();
+                byte[] buffer = new byte[1024];
+                while (true)
                 {
-                    AppendToLog("detect " + response + " at " + DateTime.Now + Environment.NewLine, Color.Teal);
+                    // read data received from the server
+                    int received = stream.Read(buffer, 0, buffer.Length);
+                    string response = Encoding.UTF8.GetString(buffer, 0, received);
+                    if (response.Equals("File2 was changed"))
+                    {
+                        AppendToLog("detect " + response + " at " + DateTime.Now + Environment.NewLine);
+                    }
+                    else
+                    {
+                        dataServer2 = response;
+                    }
                 }
+            }catch(Exception ex)
+            {
+                AppendToLog("can't Connect to server 2,please try again (port is 1309 and ip is any)");
             }
+            
         }
 
         private void backgroundWorker3_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            List<IPEndPoint> ip = iPEndPoints();
-            client3.Connect(ip[2]);
-            NetworkStream stream = client3.GetStream();
-            byte[] buffer = new byte[1024];
-            string k = "connect success to server";
-            buffer = Encoding.UTF8.GetBytes(k);
-            stream.Write(buffer, 0, buffer.Length);
-            while (true)
+            try
             {
-                // read data received from the server
+                List<IPEndPoint> ip = iPEndPoints();
+                //Connect to server 1 :
 
-                int received = stream.Read(buffer, 0, buffer.Length);
-                string response = Encoding.UTF8.GetString(buffer, 0, received);
-                if (response != null)
+                client3.Connect(ip[2]);
+                NetworkStream stream = client3.GetStream();
+                byte[] buffer = new byte[1024];
+                while (true)
                 {
-                    AppendToLog("detect " + response + " at " + DateTime.Now + Environment.NewLine, Color.Magenta);
+                    // read data received from the server
+                    int received = stream.Read(buffer, 0, buffer.Length);
+                    string response = Encoding.UTF8.GetString(buffer, 0, received);
+                    if (response.Equals("File3 was changed"))
+                    {
+                        AppendToLog("detect " + response + " at " + DateTime.Now + Environment.NewLine);
+                    }
+                    else
+                    {
+                        dataServer3 = response;
+                    }
                 }
             }
-        }
+            catch(Exception ex)
+            {
+                AppendToLog("can't Connect to server 3,please try again (port is 1310 and ip is any)");
 
+            }
+
+        }
+        /// <summary>
+        /// display json string get from server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void read_Click(object sender, EventArgs e)
         {
-            var stream1 = client1.GetStream();
-            byte[] buffer = new byte[1024];
-            string request = "data";
-            buffer = Encoding.UTF8.GetBytes(request);
-            stream1.Write(buffer, 0, buffer.Length);
+            submit.Enabled = true;
+            get.Text = dataServer1 + " " + dataServer2 + "" + dataServer3;
+        }
+        /// <summary>
+        /// return list product when input the string json
+        /// </summary>
+        /// <returns></returns>
+        static List<Product> Loading(string text)
+        {
+            var products = JsonConvert.DeserializeObject<List<Product>>(text);
+            return products;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable ConvertToDataTable()
+        {
+            DataTable table = new DataTable("Products");
 
-            //receive data and display
-            int received = stream1.Read(buffer, 0, buffer.Length);
-            string response = Encoding.UTF8.GetString(buffer, 0, received);
-            get.Text = response;
+            // Check if columns exists
+            if (!table.Columns.Contains("PART_NO"))
+            {
+                table.Columns.Add("PART_NO", typeof(string));
+            }
+
+            if (!table.Columns.Contains("LOT"))
+            {
+                table.Columns.Add("LOT", typeof(string));
+            }
+
+            if (!table.Columns.Contains("PART_NAME"))
+            {
+                table.Columns.Add("PART_NAME", typeof(string));
+            }
+
+            if (!table.Columns.Contains("PARA_NAME"))
+            {
+                table.Columns.Add("PARA_NAME", typeof(string));
+            }
+
+            if (!table.Columns.Contains("VALUE"))
+            {
+                table.Columns.Add("VALUE", typeof(string));
+            }
+
+            if (!table.Columns.Contains("WO_QTY"))
+            {
+                table.Columns.Add("WO_QTY", typeof(string));
+            }
+
+            if (!table.Columns.Contains("PER_REEL_QTY"))
+            {
+                table.Columns.Add("PER_REEL_QTY", typeof(string));
+            }
+            return table;
+        }
+
+        private void submit_Click(object sender, EventArgs e)
+        { 
+            string userLot = lot.Text;
+            DataTable data = new DataTable();
+            data = ConvertToDataTable();
+            var lisProduct1 = Loading(dataServer1);
+            var lisProduct2 = Loading(dataServer2);
+            var lisProduct3 = Loading(dataServer3);
+            List<Product> listAllProduct = lisProduct1.Concat(lisProduct2).Concat(lisProduct3).ToList();
+            var listOfProductOrder = from product in listAllProduct
+                                     where product.LOT == userLot
+                                     select product;
+            foreach (var product in listOfProductOrder)
+            {
+                data.Rows.Add(product.PART_NO,
+                       product.LOT,
+                       product.PART_NAME,
+                       product.PARA_NAME,
+                       product.VALUE,
+                       product.WO_QTY,
+                       product.PER_REEL_QTY);
+            }
+            table.DataSource = data;
         }
     }
 }

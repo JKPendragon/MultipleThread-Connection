@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            dataGridView1 = new DataGridView();
+            table = new DataGridView();
             button2 = new Button();
-            button1 = new Button();
+            submit = new Button();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
@@ -39,7 +39,7 @@
             richTextBox2 = new RichTextBox();
             get = new RichTextBox();
             textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            lot = new TextBox();
             label5 = new Label();
             button3 = new Button();
             label6 = new Label();
@@ -59,7 +59,7 @@
             backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)table).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
@@ -68,9 +68,9 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.Fixed3D;
-            panel1.Controls.Add(dataGridView1);
+            panel1.Controls.Add(table);
             panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(submit);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
@@ -78,20 +78,20 @@
             panel1.Controls.Add(richTextBox2);
             panel1.Controls.Add(get);
             panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(lot);
             panel1.Location = new Point(336, 12);
             panel1.Name = "panel1";
             panel1.Size = new Size(630, 610);
             panel1.TabIndex = 0;
             // 
-            // dataGridView1
+            // table
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(3, 221);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(624, 386);
-            dataGridView1.TabIndex = 10;
+            table.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            table.Location = new Point(3, 221);
+            table.Name = "table";
+            table.RowHeadersWidth = 62;
+            table.Size = new Size(624, 386);
+            table.TabIndex = 10;
             // 
             // button2
             // 
@@ -102,14 +102,16 @@
             button2.Text = "button2";
             button2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // submit
             // 
-            button1.Location = new Point(341, 25);
-            button1.Name = "button1";
-            button1.Size = new Size(82, 34);
-            button1.TabIndex = 8;
-            button1.Text = "Submit";
-            button1.UseVisualStyleBackColor = true;
+            submit.Enabled = false;
+            submit.Location = new Point(341, 25);
+            submit.Name = "submit";
+            submit.Size = new Size(82, 34);
+            submit.TabIndex = 8;
+            submit.Text = "Submit";
+            submit.UseVisualStyleBackColor = true;
+            submit.Click += submit_Click;
             // 
             // label4
             // 
@@ -173,12 +175,12 @@
             textBox2.Size = new Size(330, 31);
             textBox2.TabIndex = 1;
             // 
-            // textBox1
+            // lot
             // 
-            textBox1.Location = new Point(93, 25);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(242, 31);
-            textBox1.TabIndex = 0;
+            lot.Location = new Point(93, 25);
+            lot.Name = "lot";
+            lot.Size = new Size(242, 31);
+            lot.TabIndex = 0;
             // 
             // label5
             // 
@@ -284,6 +286,7 @@
             // 
             // read
             // 
+            read.Enabled = false;
             read.Location = new Point(218, 598);
             read.Name = "read";
             read.Size = new Size(112, 34);
@@ -303,6 +306,7 @@
             // check
             // 
             check.BackColor = SystemColors.Info;
+            check.Enabled = false;
             check.Location = new Point(19, 598);
             check.Name = "check";
             check.Size = new Size(122, 34);
@@ -349,7 +353,7 @@
             Text = "Client Data";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)table).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
@@ -362,14 +366,13 @@
         private Panel panel1;
         private Label label1;
         private RichTextBox richTextBox2;
-        private RichTextBox get;
         private TextBox textBox2;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox lot;
+        private Button submit;
         private Label label4;
         private Label label3;
         private Label label2;
-        private DataGridView dataGridView1;
+        private DataGridView table;
         private Button button2;
         private Label label5;
         private Button button3;
@@ -389,5 +392,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
+        private static RichTextBox get;
     }
 }
